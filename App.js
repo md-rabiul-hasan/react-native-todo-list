@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Alert } from 'react-native';
 import Addtodoitem from './components/Addtodoitem';
 import Header from './components/Header';
 import TodoItem from './components/TodoItem';
@@ -17,12 +17,19 @@ export default function App() {
   }
 
   const submitHandler = (text) => {
-    const key = Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
-    const newItem = {text: text, key: key.toString()}
-    const newtodos = [
-      newItem, ...todos
-    ];
-    setTodos(newtodos)
+    if(text.length > 3) {
+      const key = Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
+      const newItem = {text: text, key: key.toString()}
+      const newtodos = [
+        newItem, ...todos
+      ];
+      setTodos(newtodos)
+    } else {
+      Alert.alert('Opps !', 'Todo must be above 3 character',[
+        { text: 'understood' }
+      ])
+    }
+    
   }
 
   return (
